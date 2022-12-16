@@ -32,21 +32,31 @@ export class DatePicker extends LitElement {
     @state()
     private _isParseable = true
 
+    @state()
+    private _parsedDate:Date = new Date()
+
   override render() {
     console.log(format(new Date(), "M/d/y"))
 
-    return html`<input @input=${this.parseUserTypedDate}>
+    return html`<input value=${format(this._parsedDate, "M/d/y")} @input=${this.parseUserTypedDate}>
     <p>Is Parseable: ${this._isParseable}</p>
     `;
   }
 
   parseUserTypedDate(e) {
-    const wat = parse(e.target.value, 'M/d/y', new Date())
-    console.log("wat:", wat.toString())
-    if(wat.toString() === 'Invalid Date') {
-        this._isParseable = false
+    const dateStrList:Array<string> = e.target.value.split('/')
+    const [m, d, y] = dateStrList
+    if(typeof y !== 'undefined' && y.length > 3) {
+        const wat = parse(e.target.value, 'M/d/y', new Date())
+        if(wat.toString() === 'Invalid Date') {
+            this._isParseable = false
+        } else {
+            this._isParseable = true
+            this._parsedDate = wat
+            this.selectedDate = format(wat, "M/d/y")
+        }
     } else {
-        this._isParseable = true
+        this._isParseable = false
     }
   }
 //   <h1>${this.sayHello(this.name)}!</h1>
