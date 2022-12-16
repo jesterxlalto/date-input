@@ -10,9 +10,9 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 
 export default {
-  input: 'date-picker.js',
+  input: 'date-input.js',
   output: {
-    file: 'date-picker.bundled.js',
+    file: 'date-input.bundled.js',
     format: 'esm',
   },
   onwarn(warning) {

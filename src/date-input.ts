@@ -9,7 +9,7 @@ import { format, parse } from 'date-fns'
  * @slot - This element has a slot
  * @csspart button - The button
  */
-@customElement('date-picker')
+@customElement('date-input')
 export class DatePicker extends LitElement {
   static override styles = css`
     :host {
@@ -40,11 +40,13 @@ export class DatePicker extends LitElement {
 
     return html`<input value=${format(this._parsedDate, "M/d/y")} @input=${this.parseUserTypedDate}>
     <p>Is Parseable: ${this._isParseable}</p>
+    <p>Selected Date: ${format(this._parsedDate, 'MM/dd/yyyy')}
     `;
   }
 
   parseUserTypedDate(e) {
-    const dateStrList:Array<string> = e.target.value.split('/')
+    this._userText = e.target.value
+    const dateStrList:Array<string> = this._userText.split('/')
     const [m, d, y] = dateStrList
     if(typeof y !== 'undefined' && y.length > 3) {
         const wat = parse(e.target.value, 'M/d/y', new Date())
@@ -54,6 +56,16 @@ export class DatePicker extends LitElement {
             this._isParseable = true
             this._parsedDate = wat
             this.selectedDate = format(wat, "M/d/y")
+            this.dispatchEvent(
+              new CustomEvent('ondateparsed', {
+                detail: { 
+                  selectedDate: this.selectedDate, 
+                  userText: this._userText 
+                },
+                bubbles: true,
+                composed: true,
+              })
+            )
         }
     } else {
         this._isParseable = false
@@ -81,6 +93,6 @@ export class DatePicker extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'date-picker': DatePicker;
+    'date-input': DatePicker;
   }
 }
