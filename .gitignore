@@ -10,3 +10,9 @@ date-picker.d.ts.map
 date-picker.js
 date-picker.js.map
 test/date-picker_test.d.ts
+test/date-input_test.d.ts
+test/date-input_test.d.ts.map
+test/date-picker_test.d.ts
+test/date-picker_test.d.ts.map
+test/date-picker_test.js
+test/date-picker_test.js.map
