@@ -3,3 +3,5 @@ date-picker.d.ts
 date-picker.d.ts.map
 date-picker.js
 date-picker.js.map
+test/date-picker_test.js
+test/date-picker_test.js.map

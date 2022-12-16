@@ -13,7 +13,7 @@ suite('date-element', () => {
     const el = await fixture(html`<date-picker selectedDate="2022-12-16T15:16:44.778Z"></date-picker>`);
     assert.shadowDom.equal(
       el,
-      `<p>16/12/2022</p>`
+      `<p>12/16/2022</p>`
     );
   });
 
